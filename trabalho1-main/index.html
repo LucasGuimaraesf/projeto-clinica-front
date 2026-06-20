@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clínica Geral</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="logo-area">
+        <img
+          src="https://i.pinimg.com/736x/72/08/e2/7208e2eb967adc9b101574e29d59256b.jpg"
+          alt="Logo"
+        />
+        <h1>Clínica Geral</h1>
+      </div>
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Abrir menu"
+        aria-expanded="false"
+        aria-controls="menu"
+      >
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <nav class="menu" id="menu">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#equipe">Doutores</a></li>
+          <li><a href="#contato">Contato</a></li>
+          <li>
+            <a href="login.html" class="btn-entrar">
+              <i class="fa-solid fa-right-to-bracket"></i> Entrar
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- BANNER -->
+    <section id="home" class="hero">
+      <div class="hero-text">
+        <span class="hero-badge">
+          <i class="fa-solid fa-heart-pulse"></i> Sua saúde em primeiro lugar
+        </span>
+
+        <h2>Cuidando da sua saúde com <span class="destaque">excelência</span></h2>
+
+        <p>
+          Atendimento médico de qualidade, profissionais especializados e
+          estrutura moderna para garantir o melhor cuidado para você e sua
+          família.
+        </p>
+
+        <a href="login.html" class="btn">
+          <i class="fa-solid fa-calendar-plus"></i> Agendar Consulta
+        </a>
+      </div>
+
+      <div class="hero-image">
+        <img
+          src="https://i.pinimg.com/1200x/42/f4/3f/42f43f801fcb0c13924a4f5b328921e2.jpg"
+          alt="Clínica"
+        />
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre" class="sobre reveal">
+      <div class="sobre-image">
+        <img
+          src="https://i.pinimg.com/1200x/36/d5/c0/36d5c078c68759407940bb0c6e3e2e9e.jpg"
+          alt="Equipe médica"
+        />
+      </div>
+
+      <div class="sobre-text">
+        <h2>Quem Somos</h2>
+
+        <p>
+          A Clínica Geral foi criada para oferecer atendimento humanizado e
+          acessível, contando com profissionais qualificados e tecnologia
+          moderna para cuidar da sua saúde.
+        </p>
+
+        <p>
+          Nossa missão é proporcionar qualidade de vida, prevenção e
+          acompanhamento médico especializado.
+        </p>
+      </div>
+    </section>
+
+    <!-- NÚMEROS / ESTATÍSTICAS -->
+    <section class="estatisticas reveal">
+      <h2>A Clínica em Números</h2>
+      <p>Resultados que refletem nosso compromisso com a sua saúde</p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <i class="fa-solid fa-hospital-user"></i>
+          <span class="numero" data-alvo="12480">0</span>
+          <p class="rotulo">Pacientes atendidos</p>
+        </div>
+        <div class="stat-card">
+          <i class="fa-solid fa-user-doctor"></i>
+          <span class="numero" data-alvo="38">0</span>
+          <p class="rotulo">Médicos especialistas</p>
+        </div>
+        <div class="stat-card">
+          <i class="fa-solid fa-calendar-check"></i>
+          <span class="numero" data-alvo="15">0</span>
+          <p class="rotulo">Anos de experiência</p>
+        </div>
+        <div class="stat-card">
+          <i class="fa-solid fa-face-smile"></i>
+          <span class="numero" data-alvo="98" data-sufixo="%">0</span>
+          <p class="rotulo">Satisfação dos pacientes</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRÁFICOS DA HOME -->
+    <section id="graficos-home" class="graficos-home reveal">
+      <h2>Pacientes Atendidos</h2>
+      <p>Acompanhe o crescimento dos nossos atendimentos</p>
+
+      <div class="graficos-home-grid">
+        <div class="grafico-box">
+          <h3><i class="fa-solid fa-chart-line"></i> Atendimentos por mês (2026)</h3>
+          <canvas id="graficoAtendimentos"></canvas>
+        </div>
+        <div class="grafico-box">
+          <h3><i class="fa-solid fa-chart-pie"></i> Por especialidade</h3>
+          <canvas id="graficoEspecialidades"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section id="servicos" class="servicos reveal">
+      <h2>Nossos Serviços</h2>
+
+      <div class="cards">
+        <div class="card">
+          <i class="fa-solid fa-heart-pulse"></i>
+          <h3>Cardiologia</h3>
+          <p>Acompanhamento e prevenção de doenças cardíacas.</p>
+        </div>
+
+        <div class="card">
+          <i class="fa-solid fa-user-doctor"></i>
+          <h3>Clínica Geral</h3>
+          <p>Consultas para todas as idades.</p>
+        </div>
+
+        <div class="card">
+          <i class="fa-solid fa-stethoscope"></i>
+          <h3>Check-up</h3>
+          <p>Exames preventivos e avaliação completa.</p>
+        </div>
+
+        <div class="card">
+          <i class="fa-solid fa-baby"></i>
+          <h3>Pediatria</h3>
+          <p>Cuidados especializados para crianças.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EQUIPE -->
+    <section id="equipe" class="equipe reveal">
+      <h2>Nossa Equipe</h2>
+
+      <div class="cards">
+        <div class="card-medico">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="" />
+          <h3>Dr. Carlos Silva</h3>
+          <p>Cardiologista</p>
+        </div>
+
+        <div class="card-medico">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="" />
+          <h3>Dra. Ana Souza</h3>
+          <p>Pediatra</p>
+        </div>
+
+        <div class="card-medico">
+          <img src="https://randomuser.me/api/portraits/men/51.jpg" alt="" />
+          <h3>Dr. Ricardo Lima</h3>
+          <p>Clínico Geral</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" class="contato reveal">
+      <h2>Agende Sua Consulta</h2>
+
+      <form>
+        <input type="text" placeholder="Nome" required />
+
+        <input type="email" placeholder="E-mail" required />
+
+        <input type="tel" placeholder="Telefone" required />
+
+        <textarea rows="5" placeholder="Digite sua mensagem"></textarea>
+
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      </div>
+      <p>
+        Clínica Geral © 2026 - Saúde, cuidado e confiança para você e sua
+        família.
+      </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script>
+      /* ---- Menu hambúrguer (mobile) ---- */
+      const menuToggle = document.getElementById("menuToggle");
+      const menu = document.getElementById("menu");
+
+      menuToggle.addEventListener("click", () => {
+        const aberto = menu.classList.toggle("aberto");
+        menuToggle.setAttribute("aria-expanded", aberto);
+        menuToggle.innerHTML = aberto
+          ? '<i class="fa-solid fa-xmark"></i>'
+          : '<i class="fa-solid fa-bars"></i>';
+      });
+
+      // Fecha o menu ao clicar em um link (navegação por âncora)
+      menu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          menu.classList.remove("aberto");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        });
+      });
+
+      /* ---- Revelação das seções ao rolar ---- */
+      const revelaveis = document.querySelectorAll(".reveal");
+      const obsReveal = new IntersectionObserver(
+        (entradas) => {
+          entradas.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visivel");
+              obsReveal.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      revelaveis.forEach((el) => obsReveal.observe(el));
+
+      /* ---- Contadores animados ---- */
+      function animarContador(el) {
+        const alvo = Number(el.dataset.alvo);
+        const sufixo = el.dataset.sufixo || "";
+        const duracao = 1600;
+        const inicio = performance.now();
+        function passo(agora) {
+          const p = Math.min((agora - inicio) / duracao, 1);
+          const valor = Math.floor(p * alvo);
+          el.textContent = valor.toLocaleString("pt-BR") + sufixo;
+          if (p < 1) requestAnimationFrame(passo);
+        }
+        requestAnimationFrame(passo);
+      }
+      const obsContador = new IntersectionObserver(
+        (entradas) => {
+          entradas.forEach((e) => {
+            if (e.isIntersecting) {
+              animarContador(e.target);
+              obsContador.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      document.querySelectorAll(".numero").forEach((n) => obsContador.observe(n));
+
+      /* ---- Gráficos (carregam só quando entram na tela) ---- */
+      let graficosFeitos = false;
+      function iniciarGraficos() {
+        // Atendimentos por mês (linha)
+        new Chart(document.getElementById("graficoAtendimentos"), {
+          type: "line",
+          data: {
+            labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"],
+            datasets: [
+              {
+                label: "Pacientes atendidos",
+                data: [820, 910, 1040, 1180, 1260, 1390],
+                borderColor: "#126b86",
+                backgroundColor: "rgba(48, 250, 223, 0.25)",
+                fill: true,
+                tension: 0.35,
+                pointBackgroundColor: "#126b86",
+                pointRadius: 4,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } },
+          },
+        });
+
+        // Por especialidade (rosca)
+        new Chart(document.getElementById("graficoEspecialidades"), {
+          type: "doughnut",
+          data: {
+            labels: ["Cardiologia", "Clínica Geral", "Pediatria", "Check-up"],
+            datasets: [
+              {
+                data: [32, 28, 24, 16],
+                backgroundColor: ["#126b86", "#30fadf", "#1763c7", "#1e9e57"],
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: "bottom" } },
+          },
+        });
+      }
+      const obsGraficos = new IntersectionObserver(
+        (entradas) => {
+          entradas.forEach((e) => {
+            if (e.isIntersecting && !graficosFeitos) {
+              iniciarGraficos();
+              graficosFeitos = true;
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      const secGraf = document.getElementById("graficos-home");
+      if (secGraf) obsGraficos.observe(secGraf);
+    </script>
+  </body>
+</html>

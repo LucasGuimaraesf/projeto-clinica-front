@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entrar - Clínica Geral</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+  </head>
+
+  <body class="auth-page">
+    <main class="auth-card">
+      <div class="auth-logo">
+        <img
+          src="https://i.pinimg.com/736x/72/08/e2/7208e2eb967adc9b101574e29d59256b.jpg"
+          alt="Logo da Clínica Geral"
+        />
+        <h1>Clínica Geral</h1>
+        <p>Acesse o sistema</p>
+      </div>
+
+      <!-- Seletor de perfil -->
+      <div class="perfil-tabs" role="tablist" aria-label="Tipo de acesso">
+        <div
+          class="perfil-tab ativo"
+          id="tabColaborador"
+          role="tab"
+          tabindex="0"
+          aria-selected="true"
+          onclick="selecionarPerfil('colaborador')"
+        >
+          <i class="fa-solid fa-user-doctor"></i>
+          <span>Colaborador</span>
+        </div>
+        <div
+          class="perfil-tab"
+          id="tabPaciente"
+          role="tab"
+          tabindex="0"
+          aria-selected="false"
+          onclick="selecionarPerfil('paciente')"
+        >
+          <i class="fa-solid fa-user"></i>
+          <span>Paciente</span>
+        </div>
+      </div>
+
+      <form id="formLogin" onsubmit="return entrar(event)">
+        <!-- Campo extra só para colaboradores: função -->
+        <div class="auth-field" id="campoFuncao">
+          <label for="funcao">Função</label>
+          <select id="funcao" class="form-select" style="padding: 14px; width: 270px; border-radius: 10px; border: 1px solid #ccc;">
+            <option value="medico">Médico(a)</option>
+            <option value="assistente">Assistente</option>
+            <option value="administrativo">Administrativo</option>
+          </select>
+        </div>
+
+        <div class="auth-field">
+          <label for="email" id="labelUsuario">E-mail</label>
+          <input type="email" id="email" placeholder="seu@email.com" required />
+        </div>
+
+        <div class="auth-field">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" placeholder="••••••••" required />
+        </div>
+
+        <button type="submit" class="btn-full">Entrar</button>
+      </form>
+
+      <p class="auth-foot">
+        <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Voltar ao site</a>
+      </p>
+    </main>
+
+    <script>
+      let perfilAtual = "colaborador";
+
+      function selecionarPerfil(perfil) {
+        perfilAtual = perfil;
+        document.getElementById("tabColaborador").classList.toggle("ativo", perfil === "colaborador");
+        document.getElementById("tabPaciente").classList.toggle("ativo", perfil === "paciente");
+        document.getElementById("tabColaborador").setAttribute("aria-selected", perfil === "colaborador");
+        document.getElementById("tabPaciente").setAttribute("aria-selected", perfil === "paciente");
+
+        // Função só aparece para colaboradores
+        document.getElementById("campoFuncao").style.display =
+          perfil === "colaborador" ? "block" : "none";
+      }
+
+      function entrar(e) {
+        e.preventDefault();
+        if (perfilAtual === "colaborador") {
+          window.location.href = "dashboard.html";
+        } else {
+          window.location.href = "portal-paciente.html";
+        }
+        return false;
+      }
+    </script>
+  </body>
+</html>

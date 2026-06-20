@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Clínica Geral</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    />
+  </head>
+
+  <body class="app-body">
+    <!-- SIDEBAR (requisito 4.2) -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <img
+          src="https://i.pinimg.com/736x/72/08/e2/7208e2eb967adc9b101574e29d59256b.jpg"
+          alt="Logo"
+        />
+        <h2>Clínica Geral</h2>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li><a href="#" class="ativo"><i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
+        <li><a href="#agenda"><i class="fa-solid fa-calendar-days"></i> Agenda</a></li>
+        <li><a href="#"><i class="fa-solid fa-hospital-user"></i> Pacientes</a></li>
+        <li><a href="#"><i class="fa-solid fa-user-doctor"></i> Médicos</a></li>
+        <li><a href="#"><i class="fa-solid fa-chart-pie"></i> Relatórios</a></li>
+        <li><a href="#"><i class="fa-solid fa-gear"></i> Configurações</a></li>
+      </ul>
+
+      <div class="sidebar-foot">
+        <a href="login.html"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+      </div>
+    </aside>
+
+    <!-- TOPBAR (requisito 4.1) -->
+    <header class="topbar">
+      <button class="topbar-toggle" id="sidebarToggle" aria-label="Abrir menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="topbar-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input
+          type="text"
+          id="buscaGlobal"
+          placeholder="Buscar paciente ou médico..."
+          aria-label="Busca global"
+          autocomplete="off"
+        />
+        <div class="search-results" id="searchResults"></div>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="btn-novo" data-bs-toggle="modal" data-bs-target="#modalNovo">
+          <i class="fa-solid fa-plus"></i> <span>Novo Agendamento</span>
+        </button>
+        <div class="topbar-user">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Usuário" />
+          <span>Dr. Carlos</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main">
+      <h1 class="main-title">Dashboard</h1>
+      <p class="main-sub">Visão geral operacional da clínica — sexta, 20/06/2026</p>
+
+      <!-- KPI CARDS (requisito 4.3) -->
+      <section class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon" style="background: #1763c7;"><i class="fa-solid fa-calendar-check"></i></div>
+          <div><h3 id="kpiDia">0</h3><p>Consultas do dia</p></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon" style="background: #c79100;"><i class="fa-solid fa-clock"></i></div>
+          <div><h3 id="kpiPendentes">0</h3><p>Consultas pendentes</p></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon" style="background: #1e9e57;"><i class="fa-solid fa-users"></i></div>
+          <div><h3 id="kpiAguardando">0</h3><p>Pacientes aguardando</p></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon" style="background: #126b86;"><i class="fa-solid fa-sack-dollar"></i></div>
+          <div><h3 id="kpiFaturamento">R$ 0</h3><p>Faturamento</p></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon" style="background: #6b46c1;"><i class="fa-solid fa-gauge"></i></div>
+          <div><h3 id="kpiOcupacao">0%</h3><p>Taxa de ocupação</p></div>
+        </div>
+      </section>
+
+      <!-- GRÁFICOS (requisito 4.3 - componentes visuais) -->
+      <section class="graficos-grid">
+        <div class="bloco grafico-card">
+          <h3><i class="fa-solid fa-chart-column"></i> Consultas por médico</h3>
+          <canvas id="graficoMedico"></canvas>
+        </div>
+        <div class="bloco grafico-card">
+          <h3><i class="fa-solid fa-chart-pie"></i> Por status</h3>
+          <canvas id="graficoStatus"></canvas>
+        </div>
+      </section>
+
+      <!-- AGENDA + TIMELINE -->
+      <div class="painel-duplo" id="agenda">
+        <!-- COLUNA PRINCIPAL: AGENDA -->
+        <div>
+          <!-- TOOLBAR (requisitos 4.4 e 4.6) -->
+          <div class="toolbar">
+            <div class="toolbar-nav">
+              <button aria-label="Período anterior"><i class="fa-solid fa-chevron-left"></i></button>
+              <span class="periodo">16/06 — 20/06</span>
+              <button aria-label="Próximo período"><i class="fa-solid fa-chevron-right"></i></button>
+              <button style="width:auto; padding:0 14px;">Hoje</button>
+            </div>
+
+            <div class="view-switch" role="group" aria-label="Modo de visualização">
+              <button data-view="diaria">Diária</button>
+              <button data-view="semanal" class="ativo">Semanal</button>
+              <button data-view="mensal">Mensal</button>
+            </div>
+
+            <div class="toolbar-filtros">
+              <select id="filtroMedico" aria-label="Filtrar por médico">
+                <option value="">Todos os médicos</option>
+              </select>
+              <select id="filtroEspecialidade" aria-label="Filtrar por especialidade">
+                <option value="">Especialidade</option>
+              </select>
+              <select id="filtroStatus" aria-label="Filtrar por status">
+                <option value="">Status</option>
+                <option value="confirmado">Confirmado</option>
+                <option value="espera">Em espera</option>
+                <option value="atendimento">Em atendimento</option>
+                <option value="finalizado">Finalizado</option>
+                <option value="cancelado">Cancelado</option>
+              </select>
+              <select id="filtroSala" aria-label="Filtrar por sala">
+                <option value="">Sala</option>
+              </select>
+            </div>
+          </div>
+
+          <p id="viewAviso" style="color:#8a98a8; font-size:0.85rem; margin-bottom:10px;"></p>
+
+          <!-- GRID DA AGENDA (requisito 4.4) -->
+          <div class="agenda-wrap" id="agendaWrap">
+            <div class="agenda-grid" id="agendaGrid"></div>
+          </div>
+
+          <!-- Estado vazio (filtro/busca sem resultados) -->
+          <div class="bloco estado-vazio" id="agendaVazio" style="display: none;">
+            <i class="fa-solid fa-calendar-xmark"></i>
+            <p>Nenhuma consulta encontrada para este filtro.</p>
+          </div>
+
+          <!-- LEGENDA DE CORES SEMÂNTICAS (requisito 5.4) -->
+          <div class="legenda">
+            <span><i class="ponto" style="background:#1e9e57"></i> Confirmado</span>
+            <span><i class="ponto" style="background:#c79100"></i> Em espera</span>
+            <span><i class="ponto" style="background:#1763c7"></i> Em atendimento</span>
+            <span><i class="ponto" style="background:#6b7280"></i> Finalizado</span>
+            <span><i class="ponto" style="background:#d23b3b"></i> Cancelado</span>
+          </div>
+        </div>
+
+        <!-- COLUNA LATERAL: TIMELINE (requisito 4.8) -->
+        <div class="bloco">
+          <h3><i class="fa-solid fa-timeline"></i> Timeline de hoje</h3>
+          <ul class="timeline" id="timeline"></ul>
+        </div>
+      </div>
+    </main>
+
+    <!-- MODAL: DETALHE DA CONSULTA -->
+    <div class="modal fade" id="modalDetalhe" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 15px;">
+          <div class="modal-header">
+            <h5 class="modal-title">Detalhes da Consulta</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <div class="modal-body">
+            <p><strong>Paciente:</strong> <span id="detPaciente"></span></p>
+            <p><strong>Médico:</strong> <span id="detMedico"></span></p>
+            <p><strong>Horário:</strong> <span id="detHorario"></span></p>
+            <p><strong>Duração:</strong> <span id="detDuracao"></span></p>
+            <p><strong>Sala:</strong> <span id="detSala"></span></p>
+            <p><strong>Status:</strong> <span id="detStatus" class="badge-status"></span></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-danger" onclick="mudarStatus('cancelado')">
+              <i class="fa-solid fa-xmark"></i> Cancelar consulta
+            </button>
+            <button type="button" class="btn-novo" onclick="mudarStatus('confirmado')">
+              <i class="fa-solid fa-check"></i> Confirmar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: NOVO AGENDAMENTO (requisito 8 - Modal/Formulários) -->
+    <div class="modal fade" id="modalNovo" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 15px;">
+          <div class="modal-header">
+            <h5 class="modal-title">Novo Agendamento</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          </div>
+          <form onsubmit="alert('Agendamento criado (demonstração)!'); bootstrap.Modal.getInstance(document.getElementById('modalNovo')).hide(); return false;">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label" for="novoPaciente">Paciente</label>
+                <input type="text" class="form-control" id="novoPaciente" required />
+              </div>
+              <div class="row">
+                <div class="col mb-3">
+                  <label class="form-label" for="novoData">Data</label>
+                  <input type="date" class="form-control" id="novoData" required />
+                </div>
+                <div class="col mb-3">
+                  <label class="form-label" for="novoHora">Horário</label>
+                  <input type="time" class="form-control" id="novoHora" required />
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="novoMedico">Médico</label>
+                <select class="form-select" id="novoMedico" required>
+                  <option value="">Selecione...</option>
+                  <option>Dr. Carlos Silva — Cardiologia</option>
+                  <option>Dra. Ana Souza — Pediatria</option>
+                  <option>Dr. Ricardo Lima — Clínica Geral</option>
+                  <option>Dra. Marina Costa — Check-up</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="novoSala">Sala</label>
+                <input type="text" class="form-control" id="novoSala" placeholder="Ex: Sala 1" required />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn-novo">Agendar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", initDashboard);
+    </script>
+  </body>
+</html>
